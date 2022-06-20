@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FunctionComponent } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { theme } from './theme';
+import { NavBar } from './components/NavBar';
+import Home from './pages/Home';
+import Signin from './pages/Signin';
 
-function App() {
+const App: FunctionComponent = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <CssBaseline />
+      <ThemeProvider theme={theme}>
+        <NavBar />
+        <main>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/signin' element={<Signin />} />
+          </Routes>
+        </main>
+      </ThemeProvider>
     </div>
   );
-}
+};
 
 export default App;

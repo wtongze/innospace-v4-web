@@ -1,0 +1,9 @@
+.link,
+.link:hover,
+.link:focus,
+.link:active,
+.link:visited {
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent
+}
