@@ -9,8 +9,8 @@ import Signin from './pages/Signin';
 const App: FunctionComponent = () => {
   return (
     <div className='App'>
-      <CssBaseline />
       <ThemeProvider theme={theme}>
+      <CssBaseline />
         <NavBar />
         <main>
           <Routes>
