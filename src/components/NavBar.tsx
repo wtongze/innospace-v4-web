@@ -27,7 +27,7 @@ export const NavBar: FunctionComponent = () => {
             edge='start'
             color='inherit'
             aria-label='menu'
-            sx={{ mr: 2 }}
+            sx={{ mr: '16px' }}
           >
             <MenuIcon />
           </IconButton>
@@ -37,8 +37,8 @@ export const NavBar: FunctionComponent = () => {
         </Typography>
         {isSignedIn || location.pathname === '/signin' ? null : (
           <Fragment>
-            <Button color='inherit' sx={{ px: 2 }}>
-              <Link to={'/signin'}>Sign In</Link>
+            <Button color='inherit' sx={{ px: '16px' }}>
+              <Link to={'/signin'}>SIGN IN</Link>
             </Button>
           </Fragment>
         )}

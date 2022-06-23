@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
 
+interface BasicUser {
+  id: string;
+  name: string;
+  email: string;
+}
+
 export const useAuth = () => {
-  const [signedIn, setSignedIn] = useState(false);
+  const [user, setUser] = useState<BasicUser>();
 
   useEffect(() => {
-    fetch('http://localhost:4000/v4/auth/status')
+    fetch('http://localhost:4000/v4/user/basic')
       .then((res) => res.json())
-      .then(({ status }) => setSignedIn(status === 'OK'));
+      .then((data: { result?: BasicUser }) => setUser(data.result));
   }, []);
 
-  return signedIn;
+  return user;
 };
