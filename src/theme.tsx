@@ -53,6 +53,9 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
+          paddingTop: '8px',
+          paddingBottom: '8px',
+          borderRadius: '4px',
         },
       },
     },

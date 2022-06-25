@@ -43,7 +43,7 @@ const Signin: FunctionComponent = () => {
           variant='h4'
           component={'h1'}
           fontWeight={700}
-          sx={{ mb: '16px' }}
+          sx={{ mb: '32px' }}
         >
           Sign In
         </Typography>
@@ -81,33 +81,28 @@ const Signin: FunctionComponent = () => {
             }
             fullWidth
             required
+            type='password'
           />
         </div>
-        <div>
+        <div style={{ marginTop: '16px' }}>
           <Button
             fullWidth
             variant='contained'
             disableElevation
-            sx={{ py: '8px', borderRadius: '4px', mb: '8px' }}
+            sx={{ mb: '8px' }}
           >
             SIGN IN
           </Button>
-          <Button
-            fullWidth
-            variant='contained'
-            disableElevation
-            color='secondary'
-            sx={{ py: '8px', borderRadius: '4px', mb: '8px' }}
-          >
-            SIGN UP
+          <Button fullWidth variant='text' disableElevation>
+            Create new account
           </Button>
-          <hr style={{ borderColor: '#0000001a' }} />
+          <hr style={{ borderColor: '#0000001a', borderWidth: '0.5px' }} />
           <Button
             fullWidth
             variant='contained'
             color='gray'
             disableElevation
-            sx={{ py: '8px', borderRadius: '4px', mt: '8px' }}
+            sx={{ mt: '4px' }}
             startIcon={<img src='/google.svg' alt='Google Logo' height={20} />}
             href={'http://localhost:4000/v4/auth/google'}
           >
