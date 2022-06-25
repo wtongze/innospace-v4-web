@@ -92,6 +92,15 @@ const Signin: FunctionComponent = () => {
           >
             SIGN IN
           </Button>
+          <Button
+            fullWidth
+            variant='contained'
+            disableElevation
+            color='secondary'
+            sx={{ py: '8px', borderRadius: '4px', mb: '8px' }}
+          >
+            SIGN UP
+          </Button>
           <hr style={{ borderColor: '#0000001a' }} />
           <Button
             fullWidth

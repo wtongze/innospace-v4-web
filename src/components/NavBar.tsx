@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent } from 'react';
+import { Fragment, FunctionComponent, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   AppBar,
@@ -11,17 +11,17 @@ import {
 } from '@mui/material';
 import { MenuRounded as MenuIcon } from '@mui/icons-material';
 import { Link } from './Link';
-import { useAuth } from './useAuth';
+import { AuthContext } from '../App';
 
 export const NavBar: FunctionComponent = () => {
-  const isSignedIn = useAuth();
+  const user = useContext(AuthContext);
   const theme = useTheme();
   const location = useLocation();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   return (
     <AppBar position='static' elevation={0}>
       <Toolbar>
-        {isMobile && isSignedIn ? (
+        {isMobile && user ? (
           <IconButton
             size='large'
             edge='start'
@@ -35,13 +35,20 @@ export const NavBar: FunctionComponent = () => {
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           <Link to={'/'}>InnoSpace</Link>
         </Typography>
-        {isSignedIn || location.pathname === '/signin' ? null : (
+        {user || location.pathname === '/signin' ? null : (
           <Fragment>
             <Button color='inherit' sx={{ px: '16px' }}>
               <Link to={'/signin'}>SIGN IN</Link>
             </Button>
           </Fragment>
         )}
+        {user ? (
+          <Fragment>
+            <Button color='inherit' sx={{ px: '16px' }}>
+              <Link to={'/signout'}>SIGN OUT</Link>
+            </Button>
+          </Fragment>
+        ) : null}
       </Toolbar>
     </AppBar>
   );
