@@ -32,7 +32,12 @@ export const NavBar: FunctionComponent = () => {
             <MenuIcon />
           </IconButton>
         ) : null}
-        <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+        <Typography
+          variant='h4'
+          component='div'
+          fontWeight={500}
+          sx={{ flexGrow: 1 }}
+        >
           <Link to={'/'}>InnoSpace</Link>
         </Typography>
         {user || location.pathname === '/signin' ? null : (

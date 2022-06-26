@@ -40,7 +40,7 @@ const Signin: FunctionComponent = () => {
         }}
       >
         <Typography
-          variant='h4'
+          variant='h2'
           component={'h1'}
           fontWeight={700}
           sx={{ mb: '32px' }}
@@ -103,7 +103,7 @@ const Signin: FunctionComponent = () => {
             color='gray'
             disableElevation
             sx={{ mt: '4px' }}
-            startIcon={<img src='/google.svg' alt='Google Logo' height={20} />}
+            startIcon={<img src='/asset/google.svg' alt='Google Logo' height={20} />}
             href={'http://localhost:4000/v4/auth/google'}
           >
             SIGN IN with Google
