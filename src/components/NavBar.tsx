@@ -40,7 +40,7 @@ export const NavBar: FunctionComponent = () => {
         >
           <Link to={'/'}>InnoSpace</Link>
         </Typography>
-        {user || location.pathname === '/signin' ? null : (
+        {user || location.pathname.startsWith('/sign') ? null : (
           <Fragment>
             <Button color='inherit' sx={{ px: '16px' }}>
               <Link to={'/signin'}>SIGN IN</Link>

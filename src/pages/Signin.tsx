@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { Link } from '../components/Link';
 import { SoloTextField } from '../components/SoloTextField';
 
 const Signin: FunctionComponent = () => {
@@ -94,7 +95,7 @@ const Signin: FunctionComponent = () => {
             SIGN IN
           </Button>
           <Button fullWidth variant='text' disableElevation>
-            Create new account
+            <Link to='/signup'>Create new account</Link>
           </Button>
           <hr style={{ borderColor: '#0000001a', borderWidth: '0.5px' }} />
           <Button
@@ -103,7 +104,9 @@ const Signin: FunctionComponent = () => {
             color='gray'
             disableElevation
             sx={{ mt: '4px' }}
-            startIcon={<img src='/asset/google.svg' alt='Google Logo' height={20} />}
+            startIcon={
+              <img src='/asset/google.svg' alt='Google Logo' height={20} />
+            }
             href={'http://localhost:4000/v4/auth/google'}
           >
             SIGN IN with Google

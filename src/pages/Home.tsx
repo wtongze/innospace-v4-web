@@ -9,6 +9,12 @@ import { Container } from '@mui/system';
 import lottie from 'lottie-web';
 import { FunctionComponent, useEffect } from 'react';
 import { EmojiEventsRounded as AwardIcon } from '@mui/icons-material';
+import { RoleCard } from '../components/RoleCard';
+import {
+  SearchRounded as SearchIcon,
+  AddRounded as AddIcon,
+} from '@mui/icons-material';
+import { Footer } from '../components/Footer';
 
 const Home: FunctionComponent = () => {
   useEffect(() => {
@@ -116,11 +122,34 @@ const Home: FunctionComponent = () => {
             component='h3'
             fontWeight={500}
             align='center'
+            sx={{ mb: '16px' }}
           >
             What's your role?
           </Typography>
+          <RoleCard
+            src='/asset/talented-student.svg'
+            title='Talented Student'
+            description='who want to have more job-related exprience before graduating?'
+            actionIcon={<SearchIcon />}
+            actionText='Search for project'
+            to='/explore/search'
+            sx={{
+              width: isMobile ? undefined : '80%',
+              margin: '0 auto 16px',
+            }}
+          />
+          <RoleCard
+            src='/asset/project-owner.svg'
+            title='Project Owner'
+            description='who want to get more talented students to help builing your awesome project?'
+            actionIcon={<AddIcon />}
+            actionText='Submit your project'
+            to='/explore/new'
+            sx={{ width: isMobile ? undefined : '80%', margin: '0 auto' }}
+          />
         </Container>
       </Container>
+      <Footer />
     </div>
   );
 };
