@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Signin from './pages/Signin';
 import { BasicUser, useAuth } from './components/useAuth';
 import Signout from './pages/Signout';
+import Signup from './pages/Signup';
 
 export const AuthContext = createContext<BasicUser | undefined>(undefined);
 
@@ -23,6 +24,7 @@ const App: FunctionComponent = () => {
               <Route path='/' element={<Home />} />
               <Route path='/signin' element={<Signin />} />
               <Route path='/signout' element={<Signout />} />
+              <Route path='/signup' element={<Signup />} />
             </Routes>
           </main>
         </AuthContext.Provider>

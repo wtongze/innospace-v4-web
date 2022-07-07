@@ -47,7 +47,8 @@ export const SoloTextField: FunctionComponent<
           variant='subtitle3'
           sx={{
             mb: '12px',
-            color: props.error ? theme.palette.error.main : undefined,
+            ml: '16px',
+            color: props.error ? theme.palette.error.main : theme.palette.grey[600],
           }}
           variantMapping={{ subtitle3: 'h6' }}
         >
