@@ -1,11 +1,8 @@
 import {
   Button,
-  Container,
   IconButton,
   InputAdornment,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
 import { SoloTextField } from '../components/SoloTextField';
@@ -17,30 +14,14 @@ import {
   VisibilityOffRounded as VisibilityOffIcon,
 } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import CentricLayout from '../components/CentricLayout';
 
 const Signup: FunctionComponent = () => {
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className='signup'>
-      <Container
-        sx={{
-          py: '24px',
-          ...(isDesktop
-            ? {
-                border: '2px solid #f1f3f5',
-                borderRadius: '8px',
-                position: 'absolute',
-                left: '50%',
-                top: '50%',
-                transform: 'translateX(-50%) translateY(-50%)',
-                maxWidth: '450px !important',
-              }
-            : {}),
-        }}
-      >
+      <CentricLayout>
         <Typography
           variant='h2'
           component={'h1'}
@@ -95,7 +76,12 @@ const Signup: FunctionComponent = () => {
             helperText='Must be at lease 8 characters long.'
           />
         </div>
-        <Typography variant='body2' fontWeight={500} sx={{ mt: '32px' }} fontStyle={'italic'}>
+        <Typography
+          variant='body2'
+          fontWeight={500}
+          sx={{ mt: '32px' }}
+          fontStyle={'italic'}
+        >
           By continuing, you are indicating that you are at least 18 years old,
           accept our <Link to='/terms'>Terms of Service</Link> and{' '}
           <Link to='/privacy'>Privacy Policy</Link>.
@@ -110,7 +96,7 @@ const Signup: FunctionComponent = () => {
             SIGN UP
           </Button>
         </div>
-      </Container>
+      </CentricLayout>
     </div>
   );
 };

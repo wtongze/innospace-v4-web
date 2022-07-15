@@ -1,8 +1,5 @@
 import {
   Typography,
-  Container,
-  useTheme,
-  useMediaQuery,
   Alert,
   AlertTitle,
   LinearProgress,
@@ -13,12 +10,11 @@ import { useNavigate } from 'react-router-dom';
 import { CheckRounded as CheckIcon } from '@mui/icons-material';
 import { ResultStatus } from '../types';
 import { Link } from '../components/Link';
+import CentricLayout from '../components/CentricLayout';
 
 const Signout: FunctionComponent = () => {
-  const theme = useTheme();
   const navigate = useNavigate();
   const [errorAlertMsg, setErrorAlertMsg] = useState<string>();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const [status, setStatus] = useState<ResultStatus>();
   useEffect(() => {
     fetch('http://localhost:4000/v4/auth/signout', { credentials: 'include' })
@@ -30,22 +26,7 @@ const Signout: FunctionComponent = () => {
   }, []);
   return (
     <div className='signout'>
-      <Container
-        sx={{
-          py: '24px',
-          ...(isDesktop
-            ? {
-                border: '2px solid #f1f3f5',
-                borderRadius: '8px',
-                position: 'absolute',
-                left: '50%',
-                top: '50%',
-                transform: 'translateX(-50%) translateY(-50%)',
-                maxWidth: '450px !important',
-              }
-            : {}),
-        }}
-      >
+      <CentricLayout>
         <Typography
           variant='h4'
           component={'h1'}
@@ -114,7 +95,7 @@ const Signout: FunctionComponent = () => {
               );
           }
         })()}
-      </Container>
+      </CentricLayout>
     </div>
   );
 };

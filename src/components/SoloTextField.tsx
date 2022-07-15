@@ -1,12 +1,14 @@
 import { InputBase, InputBaseProps, Typography, useTheme } from '@mui/material';
 import { Fragment, FunctionComponent } from 'react';
+import type { FieldError } from 'react-hook-form';
 
 export const SoloTextField: FunctionComponent<
-  InputBaseProps & { helperText?: string; label?: string }
+  InputBaseProps & { helperText?: string; label?: string; error?: FieldError | boolean }
 > = (props) => {
   const theme = useTheme();
   const inputProps = { ...props };
   delete inputProps.helperText;
+  delete inputProps.label;
   return (
     <Fragment>
       {props.label ? (
@@ -43,17 +45,21 @@ export const SoloTextField: FunctionComponent<
         }}
       ></InputBase>
       {props.helperText ? (
-        <Typography
-          variant='subtitle3'
-          sx={{
-            mb: '12px',
-            ml: '16px',
-            color: props.error ? theme.palette.error.main : theme.palette.grey[600],
-          }}
-          variantMapping={{ subtitle3: 'h6' }}
-        >
-          {props.helperText}
-        </Typography>
+        <div role='alert' id={`${props.id}-helperText`}>
+          <Typography
+            variant='subtitle3'
+            sx={{
+              mb: '12px',
+              ml: '16px',
+              color: props.error
+                ? theme.palette.error.main
+                : theme.palette.grey[600],
+            }}
+            variantMapping={{ subtitle3: 'div' }}
+          >
+            {props.helperText}
+          </Typography>
+        </div>
       ) : null}
     </Fragment>
   );
