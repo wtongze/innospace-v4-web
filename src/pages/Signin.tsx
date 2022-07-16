@@ -60,7 +60,10 @@ const Signin: FunctionComponent = () => {
           ) : null}
           <div>
             <SoloTextField
+              aria-label='ID'
               placeholder='ID'
+              baseId='id'
+              autoComplete='username'
               startAdornment={
                 <InputAdornment position='start'>
                   <PersonIcon />
@@ -70,11 +73,14 @@ const Signin: FunctionComponent = () => {
               inputProps={register('id', {
                 required: { value: true, message: 'ID is required.' },
               })}
-              error={errors.id !== undefined}
+              fieldError={errors.id}
               helperText={errors.id?.message}
             />
             <SoloTextField
+              aria-label='Password'
               placeholder='Password'
+              baseId='password'
+              autoComplete='current-password'
               startAdornment={
                 <InputAdornment position='start'>
                   <LockIcon />
@@ -84,7 +90,7 @@ const Signin: FunctionComponent = () => {
               inputProps={register('password', {
                 required: { value: true, message: 'Password is required.' },
               })}
-              error={errors.password !== undefined}
+              fieldError={errors.password}
               helperText={errors.password?.message}
               type='password'
             />
@@ -99,9 +105,12 @@ const Signin: FunctionComponent = () => {
             >
               SIGN IN
             </Button>
-            <Button fullWidth variant='text' disableElevation>
-              <Link to='/signup'>Create new account</Link>
-            </Button>
+            <Link to='/signup'>
+              <Button fullWidth variant='text' disableElevation>
+                Create new account
+              </Button>
+            </Link>
+
             <hr style={{ borderColor: '#0000001a', borderWidth: '0.5px' }} />
             <Button
               fullWidth
