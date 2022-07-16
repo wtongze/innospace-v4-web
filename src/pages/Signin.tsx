@@ -1,6 +1,8 @@
 import {
   PersonRounded as PersonIcon,
   LockRounded as LockIcon,
+  VisibilityRounded as VisibilityIcon,
+  VisibilityOffRounded as VisibilityOffIcon,
 } from '@mui/icons-material';
 import {
   Typography,
@@ -8,13 +10,16 @@ import {
   Button,
   Alert,
   AlertTitle,
+  IconButton,
 } from '@mui/material';
-import { FunctionComponent, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { FunctionComponent, useContext, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from '../components/Link';
 import { SoloTextField } from '../components/SoloTextField';
 import CentricLayout from '../components/CentricLayout';
+import { AuthContext } from '../App';
+import { API } from '../api/endpoint';
 
 type Inputs = {
   id: string;
@@ -22,15 +27,24 @@ type Inputs = {
 };
 
 const Signin: FunctionComponent = () => {
+  const { updateUser } = useContext(AuthContext);
   const [query, setQuery] = useSearchParams();
   const [errorAlertMsg, setErrorAlertMsg] = useState(query.get('error'));
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) =>
+    API.postAuthSignin(data)
+      .then(() => {
+        updateUser();
+        navigate('/dashboard');
+      })
+      .catch((e: Error) => setErrorAlertMsg(e.message));
 
   return (
     <div className='signin'>
@@ -86,13 +100,23 @@ const Signin: FunctionComponent = () => {
                   <LockIcon />
                 </InputAdornment>
               }
+              endAdornment={
+                <InputAdornment position='end'>
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label='show password'
+                  >
+                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              }
               fullWidth
               inputProps={register('password', {
                 required: { value: true, message: 'Password is required.' },
               })}
               fieldError={errors.password}
               helperText={errors.password?.message}
-              type='password'
+              type={showPassword ? 'text' : 'password'}
             />
           </div>
           <div style={{ marginTop: '16px' }}>

@@ -5,19 +5,26 @@ import { theme } from './theme';
 import { NavBar } from './components/NavBar';
 import Home from './pages/Home';
 import Signin from './pages/Signin';
-import { BasicUser, useAuth } from './components/useAuth';
+import { useAuth } from './components/useAuth';
 import Signout from './pages/Signout';
 import Signup from './pages/Signup';
+import { BasicUser } from './api/endpoint';
 
-export const AuthContext = createContext<BasicUser | undefined>(undefined);
+export const AuthContext = createContext<{
+  user: BasicUser | undefined;
+  updateUser: () => Promise<void>;
+}>({
+  user: undefined,
+  updateUser: async () => {},
+});
 
 const App: FunctionComponent = () => {
-  const user = useAuth();
+  const [user, updateUser] = useAuth();
   return (
     <div className='App'>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AuthContext.Provider value={user}>
+        <AuthContext.Provider value={{ user, updateUser }}>
           <NavBar />
           <main>
             <Routes>

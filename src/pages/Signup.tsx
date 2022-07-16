@@ -6,7 +6,7 @@ import {
   InputAdornment,
   Typography,
 } from '@mui/material';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useContext, useState } from 'react';
 import validator from 'validator';
 import { SoloTextField } from '../components/SoloTextField';
 import {
@@ -16,27 +16,37 @@ import {
   VisibilityRounded as VisibilityIcon,
   VisibilityOffRounded as VisibilityOffIcon,
 } from '@mui/icons-material';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import CentricLayout from '../components/CentricLayout';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { API } from '../api/endpoint';
+import { AuthContext } from '../App';
 
 type Inputs = {
-  id: string;
+  name: string;
   email: string;
   password: string;
 };
 
 const Signup: FunctionComponent = () => {
+  const { updateUser } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [query, setQuery] = useSearchParams();
   const [errorAlertMsg, setErrorAlertMsg] = useState(query.get('error'));
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) =>
+    API.postAuthSignup(data)
+      .then(() => {
+        updateUser();
+        navigate('/dashboard');
+      })
+      .catch(() => setErrorAlertMsg('Sign up failed. Please try again later.'));
 
   return (
     <div className='signup'>
@@ -66,28 +76,28 @@ const Signup: FunctionComponent = () => {
           ) : null}
           <div>
             <SoloTextField
-              baseId='id'
-              placeholder='ID'
-              aria-label='ID'
-              autoComplete='username'
+              baseId='name'
+              placeholder='Name'
+              aria-label='Name'
+              autoComplete='name'
               startAdornment={
                 <InputAdornment position='start'>
                   <PersonIcon />
                 </InputAdornment>
               }
               fullWidth
-              inputProps={register('id', {
-                required: { value: true, message: 'ID is required.' },
+              inputProps={register('name', {
+                required: { value: true, message: 'Name is required.' },
                 minLength: {
                   value: 5,
-                  message: 'ID must be at least 5 characters long.',
+                  message: 'Name must be at least 5 characters long.',
                 },
               })}
-              fieldError={errors.id}
+              fieldError={errors.name}
               helperText={
-                errors.id
-                  ? errors.id.message
-                  : 'ID must be at least 5 characters long.'
+                errors.name
+                  ? errors.name.message
+                  : 'Name must be at least 5 characters long.'
               }
             />
             <SoloTextField

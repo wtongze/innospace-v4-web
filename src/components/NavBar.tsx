@@ -14,7 +14,7 @@ import { Link } from './Link';
 import { AuthContext } from '../App';
 
 export const NavBar: FunctionComponent = () => {
-  const user = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const theme = useTheme();
   const location = useLocation();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
@@ -47,7 +47,7 @@ export const NavBar: FunctionComponent = () => {
             </Button>
           </Fragment>
         )}
-        {user ? (
+        {user && location.pathname !== '/signout' ? (
           <Fragment>
             <Button color='inherit' sx={{ px: '16px' }}>
               <Link to={'/signout'}>SIGN OUT</Link>
