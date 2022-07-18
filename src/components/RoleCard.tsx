@@ -18,7 +18,7 @@ interface RoleProps {
   description: string;
   actionIcon: React.ReactNode;
   actionText: string;
-  sx: SxProps<Theme>;
+  sx?: SxProps<Theme>;
 }
 
 export const RoleCard: FunctionComponent<RoleProps> = (props) => {

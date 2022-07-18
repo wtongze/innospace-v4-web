@@ -30,10 +30,10 @@ import {
   DashboardRounded as DashboardIcon,
   ExploreRounded as ExploreIcon,
   InboxRounded as InboxIcon,
-  PersonRounded as PersonIcon,
 } from '@mui/icons-material';
 import { Link } from './components/Link';
 import CubeIcon from './components/CubeIcon';
+import Explore from './pages/Explore';
 
 export const AuthContext = createContext<{
   user: BasicUser | undefined;
@@ -64,11 +64,11 @@ const navDrawerList = [
     icon: <InboxIcon />,
     path: '/application',
   },
-  {
-    name: 'Profile',
-    icon: <PersonIcon />,
-    path: '/profile',
-  },
+  // {
+  //   name: 'Profile',
+  //   icon: <PersonIcon />,
+  //   path: '/profile',
+  // },
 ];
 export const showDrawerPathList = navDrawerList.map((i) => i.path);
 
@@ -90,7 +90,7 @@ const App: FunctionComponent = () => {
               }}
               showDrawerPathList={showDrawerPathList}
             />
-            {showDrawerPathList.includes(location.pathname) ? (
+            {showDrawerPathList.some((i) => location.pathname.startsWith(i)) ? (
               <Drawer
                 anchor='left'
                 open={drawer}
@@ -127,13 +127,12 @@ const App: FunctionComponent = () => {
                     {navDrawerList.map(({ name, path, icon }) => {
                       const active = location.pathname.startsWith(path);
                       return (
-                        <Link to={path}>
+                        <Link to={path} key={name}>
                           <ListItem
-                            key={name}
                             disablePadding
                             sx={{
                               px: 2,
-                              mb: 0.25,
+                              mb: 0.5,
                             }}
                           >
                             <ListItemButton
@@ -211,6 +210,7 @@ const App: FunctionComponent = () => {
                 <Route path='/signout' element={<Signout />} />
                 <Route path='/signup' element={<Signup />} />
                 <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='/explore' element={<Explore />} />
               </Routes>
             </Box>
           </Box>

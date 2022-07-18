@@ -68,7 +68,9 @@ export const NavBar: FunctionComponent<{
         )}
         {user && location.pathname !== '/signout' ? (
           <Fragment>
-            {!showDrawerPathList.includes(location.pathname) ? (
+            {!showDrawerPathList.some((i) =>
+              location.pathname.startsWith(i)
+            ) ? (
               <Link to={'/dashboard'}>
                 {isMobile ? (
                   <IconButton color='inherit' aria-label='Dashboard'>
