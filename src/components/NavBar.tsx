@@ -9,25 +9,40 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { MenuRounded as MenuIcon } from '@mui/icons-material';
+import {
+  MenuRounded as MenuIcon,
+  DashboardRounded as DashboardIcon,
+  LogoutRounded as LogoutIcon,
+  LoginRounded as LoginIcon,
+} from '@mui/icons-material';
 import { Link } from './Link';
-import { AuthContext } from '../App';
+import { AuthContext, showDrawerPathList } from '../App';
 
-export const NavBar: FunctionComponent = () => {
+export const NavBar: FunctionComponent<{
+  onToggleDrawer: () => void;
+  showDrawerPathList: string[];
+}> = (props) => {
   const { user } = useContext(AuthContext);
   const theme = useTheme();
   const location = useLocation();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   return (
-    <AppBar position='static' elevation={0}>
+    <AppBar
+      position='fixed'
+      elevation={0}
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
       <Toolbar>
-        {isMobile && user ? (
+        {isMobile &&
+        user &&
+        props.showDrawerPathList.includes(location.pathname) ? (
           <IconButton
             size='large'
             edge='start'
             color='inherit'
             aria-label='menu'
             sx={{ mr: '16px' }}
+            onClick={props.onToggleDrawer}
           >
             <MenuIcon />
           </IconButton>
@@ -42,16 +57,50 @@ export const NavBar: FunctionComponent = () => {
         </Typography>
         {user || location.pathname.startsWith('/sign') ? null : (
           <Fragment>
-            <Button color='inherit' sx={{ px: '16px' }}>
+            <Button
+              color='inherit'
+              sx={{ px: '16px' }}
+              startIcon={<LoginIcon />}
+            >
               <Link to={'/signin'}>SIGN IN</Link>
             </Button>
           </Fragment>
         )}
         {user && location.pathname !== '/signout' ? (
           <Fragment>
-            <Button color='inherit' sx={{ px: '16px' }}>
-              <Link to={'/signout'}>SIGN OUT</Link>
-            </Button>
+            {!showDrawerPathList.includes(location.pathname) ? (
+              <Link to={'/dashboard'}>
+                {isMobile ? (
+                  <IconButton color='inherit' aria-label='Dashboard'>
+                    <DashboardIcon />
+                  </IconButton>
+                ) : (
+                  <Button
+                    color='inherit'
+                    sx={{ px: '16px' }}
+                    startIcon={<DashboardIcon />}
+                  >
+                    DASHBOARD
+                  </Button>
+                )}
+              </Link>
+            ) : null}
+
+            <Link to={'/signout'}>
+              {isMobile ? (
+                <IconButton color='inherit' aria-label='Sign Out'>
+                  <LogoutIcon />
+                </IconButton>
+              ) : (
+                <Button
+                  color='inherit'
+                  sx={{ px: '16px' }}
+                  startIcon={<LogoutIcon />}
+                >
+                  SIGN OUT
+                </Button>
+              )}
+            </Link>
           </Fragment>
         ) : null}
       </Toolbar>
