@@ -12,13 +12,16 @@ export const SoloTextField: FunctionComponent<
   }
 > = (props) => {
   const theme = useTheme();
-  const inputProps = { ...props };
+  const inputProps = { ...props } as InputBaseProps;
   const inputError = props.error || props.fieldError !== undefined;
+
+  // @ts-ignore
   delete inputProps.helperText;
-  delete inputProps.fieldError;
+  // @ts-ignore
   delete inputProps.label;
   delete inputProps.error;
-  delete inputProps.inputMode;
+  // @ts-ignore
+  delete inputProps.fieldError;
   // @ts-ignore
   delete inputProps.baseId;
 
