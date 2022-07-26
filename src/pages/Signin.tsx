@@ -20,6 +20,7 @@ import { SoloTextField } from '../components/SoloTextField';
 import CentricLayout from '../components/CentricLayout';
 import { AuthContext } from '../App';
 import { API } from '../api/endpoint';
+import { ENDPOINT } from '../api/const';
 
 type Inputs = {
   id: string;
@@ -145,7 +146,7 @@ const Signin: FunctionComponent = () => {
               startIcon={
                 <img src='/asset/google.svg' alt='Google Logo' height={20} />
               }
-              href={'http://localhost:4000/v4/auth/google'}
+              href={`${ENDPOINT}/v4/auth/google`}
             >
               SIGN IN with Google
             </Button>
