@@ -1,4 +1,13 @@
-import { Avatar, Box, Button, Chip, Grid, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Chip,
+  Grid,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from '@mui/material';
 import { FunctionComponent } from 'react';
 import { Link } from './Link';
 
@@ -11,10 +20,12 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: FunctionComponent<ProjectCardProps> = (props) => {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   return (
     <Box
       className='project-card'
-      sx={{ px: 4, py: 3, borderRadius: 2, border: '2px solid #e9ecef' }}
+      sx={{ px: isDesktop ? 4 : 3, py: 3, borderRadius: 2, border: '2px solid #e9ecef' }}
     >
       <Grid container spacing={2} alignItems='center'>
         <Grid item>
@@ -23,7 +34,7 @@ const ProjectCard: FunctionComponent<ProjectCardProps> = (props) => {
           </Avatar>
         </Grid>
         <Grid item>
-          <Typography variant='h3' fontWeight={600}>
+          <Typography variant='h4' fontWeight={600}>
             {props.title}
           </Typography>
         </Grid>

@@ -1,5 +1,13 @@
-import { InputBase, InputBaseProps, Typography, useTheme } from '@mui/material';
-import { Fragment, FunctionComponent } from 'react';
+import { CloseRounded } from '@mui/icons-material';
+import {
+  Button,
+  IconButton,
+  InputBase,
+  InputBaseProps,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import { Fragment, FunctionComponent, useState } from 'react';
 import type { FieldError } from 'react-hook-form';
 
 export const SoloTextField: FunctionComponent<
@@ -9,40 +17,43 @@ export const SoloTextField: FunctionComponent<
     error?: boolean;
     fieldError?: FieldError;
     baseId: string;
+    clearable?: boolean;
   }
 > = (props) => {
   const theme = useTheme();
-  const inputProps = { ...props } as InputBaseProps;
-  const inputError = props.error || props.fieldError !== undefined;
+  const [val, setVal] = useState(props.value || '');
+  const {
+    helperText,
+    label,
+    error,
+    fieldError,
+    baseId,
+    clearable,
+    ...inputProps
+  } = props;
 
-  // @ts-ignore
-  delete inputProps.helperText;
-  // @ts-ignore
-  delete inputProps.label;
-  delete inputProps.error;
-  // @ts-ignore
-  delete inputProps.fieldError;
-  // @ts-ignore
-  delete inputProps.baseId;
+  const inputError = props.error || props.fieldError !== undefined;
 
   return (
     <Fragment>
-      {props.label ? (
-        <label htmlFor={`${props.baseId}-input`}>
+      {label ? (
+        <label htmlFor={`${baseId}-input`}>
           <Typography
             variant='subtitle2'
             sx={{ mb: '4px', display: 'block' }}
             component='span'
           >
-            {props.label}
+            {label}
           </Typography>
         </label>
       ) : null}
       <InputBase
         {...inputProps}
-        id={`${props.baseId}-input`}
+        value={val}
+        onChange={(e) => setVal(e.currentTarget.value)}
+        id={`${baseId}-input`}
         sx={{
-          mb: props.helperText ? '4px' : '16px',
+          mb: helperText ? '4px' : '16px',
           padding: '12px 16px',
           backgroundColor: theme.palette.gray.main,
           borderRadius: '8px',
@@ -65,18 +76,34 @@ export const SoloTextField: FunctionComponent<
           '& input::placeholder': {
             fontFamily: theme.typography.fontFamily,
           },
+          ...inputProps.sx,
         }}
         inputProps={{
           ...(inputProps.inputProps || {}),
-          'aria-errormessage': inputError
-            ? `${props.baseId}-helperText`
-            : undefined,
+          'aria-errormessage': inputError ? `${baseId}-helperText` : undefined,
         }}
+        endAdornment={
+          <Fragment>
+            {clearable ? (
+              !val ? null : (
+                <IconButton
+                  sx={{ my: -0.5 }}
+                  onClick={() => {
+                    setVal('');
+                  }}
+                >
+                  <CloseRounded />
+                </IconButton>
+              )
+            ) : null}
+            {inputProps.endAdornment}
+          </Fragment>
+        }
       ></InputBase>
       {props.helperText ? (
         <div
           role={inputError ? 'alert' : undefined}
-          id={`${props.baseId}-helperText`}
+          id={`${baseId}-helperText`}
         >
           <Typography
             variant='subtitle3'
@@ -89,7 +116,7 @@ export const SoloTextField: FunctionComponent<
             }}
             component='div'
           >
-            {props.helperText}
+            {helperText}
           </Typography>
         </div>
       ) : null}

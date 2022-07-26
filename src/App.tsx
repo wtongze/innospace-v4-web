@@ -35,6 +35,7 @@ import { Link } from './components/Link';
 import CubeIcon from './components/CubeIcon';
 import Explore from './pages/Explore';
 import ExploreSearch from './pages/ExploreSearch';
+import ProjectPage from './pages/ProjectPage';
 
 export const AuthContext = createContext<{
   user: BasicUser | undefined;
@@ -213,6 +214,7 @@ const App: FunctionComponent = () => {
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/explore' element={<Explore />} />
                 <Route path='/explore/search' element={<ExploreSearch />} />
+                <Route path='/project' element={<ProjectPage />} />
               </Routes>
             </Box>
           </Box>
