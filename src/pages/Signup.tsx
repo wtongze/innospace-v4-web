@@ -42,8 +42,11 @@ const Signup: FunctionComponent = () => {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) =>
     API.postAuthSignup(data)
-      .then(() => {
+      .then((res) => {
         updateUser();
+        alert(
+          `Your sign in ID is "${res?.id}". Please remember it as it won't show again.`
+        );
         navigate('/dashboard');
       })
       .catch(() => setErrorAlertMsg('Sign up failed. Please try again later.'));
