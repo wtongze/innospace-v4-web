@@ -3,6 +3,7 @@ import {
   LockRounded as LockIcon,
   VisibilityRounded as VisibilityIcon,
   VisibilityOffRounded as VisibilityOffIcon,
+  EmailRounded as EmailIcon,
 } from '@mui/icons-material';
 import {
   Typography,
@@ -21,9 +22,10 @@ import CentricLayout from '../components/CentricLayout';
 import { AuthContext } from '../App';
 import { API } from '../api/endpoint';
 import { ENDPOINT } from '../api/const';
+import validator from 'validator';
 
 type Inputs = {
-  id: string;
+  email: string;
   password: string;
 };
 
@@ -75,21 +77,23 @@ const Signin: FunctionComponent = () => {
           ) : null}
           <div>
             <SoloTextField
-              aria-label='ID'
-              placeholder='ID'
-              baseId='id'
-              autoComplete='username'
+              aria-label='Email'
+              placeholder='Email'
+              baseId='email'
+              autoComplete='email'
               startAdornment={
                 <InputAdornment position='start'>
-                  <PersonIcon />
+                  <EmailIcon />
                 </InputAdornment>
               }
               fullWidth
-              inputProps={register('id', {
-                required: { value: true, message: 'ID is required.' },
+              inputProps={register('email', {
+                required: { value: true, message: 'Email is required.' },
+                validate: (val) =>
+                  validator.isEmail(val) || 'Email must be valid.',
               })}
-              fieldError={errors.id}
-              helperText={errors.id?.message}
+              fieldError={errors.email}
+              helperText={errors.email?.message}
             />
             <SoloTextField
               aria-label='Password'

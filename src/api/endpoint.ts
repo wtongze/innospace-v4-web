@@ -33,7 +33,7 @@ function getAuthSignout() {
   return request('/v4/auth/signout');
 }
 
-function postAuthSignin(data: { id: string; password: string }) {
+function postAuthSignin(data: { email: string; password: string }) {
   return request('/v4/auth/signin', {
     ...POST_OPTIONS,
     body: JSON.stringify(data),

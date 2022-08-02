@@ -44,9 +44,6 @@ const Signup: FunctionComponent = () => {
     API.postAuthSignup(data)
       .then((res) => {
         updateUser();
-        alert(
-          `Your sign in ID is "${res?.id}". Please remember it as it won't show again.`
-        );
         navigate('/dashboard');
       })
       .catch(() => setErrorAlertMsg('Sign up failed. Please try again later.'));
