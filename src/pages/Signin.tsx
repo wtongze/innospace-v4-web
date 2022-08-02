@@ -1,5 +1,4 @@
 import {
-  PersonRounded as PersonIcon,
   LockRounded as LockIcon,
   VisibilityRounded as VisibilityIcon,
   VisibilityOffRounded as VisibilityOffIcon,
